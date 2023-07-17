@@ -1,0 +1,72 @@
+<DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Watch Next</title>
+
+    {% load static %}
+    <!-- main styling sheet-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+
+
+</head>
+
+<body>
+
+
+<section id="result">
+    {% if movie_found %}
+        <h2 id="movie_title" style="text-align: center">Found: {{ movie_title }}</h2>
+        <div id="movie-details">
+            <div id="poster">
+                <img src="{{ movie_poster }}" alt="No Poster Available" class="poster-image">
+            </div>
+            <div class="details">     
+                <p id="movie_rating" style="text-align: center">⭐ {{ movie_rating }}</p>
+                <p id="movie_overview" style="text-align: center">{{ movie_overview }}</p>
+				
+            </div>
+				<h2 style="text-align: center"><a target = "_blank" href ="{{ movie_trailer }}">Watch trailer</a></h2>
+        </div>
+		
+		<h2 style="text-align: center">Recommended</h2>
+        <div class="recommended-movies">
+				<div class="recommended-movie">
+					{% for recommended_movie in recommended_movies %}
+					<div class="recommended-movie-item">
+					
+					<div class="recommended_poster">
+                        <img src="{{ recommended_movie.poster }}" alt="No Poster Available" class="recommended_poster-image">
+						
+					<div class="details">
+                        <h4>{{ recommended_movie.title }}</h4>
+                        <p>⭐ {{ recommended_movie.rating }}</p>
+                        <p>{{ recommended_movie.overview }}</p>
+						<h2><a target = "_blank" href ="{{ recommended_movie.trailer }}">Watch trailer</a></h2>
+						
+						</div>
+					</div>
+                    
+					
+                </div>
+				
+				    {% endfor %}
+			</div>
+		</div>
+    {% else %}
+        <h2>Movie or Series Not Found</h2>
+        <p>We couldn't find any movie or series matching your search. Please try a different title.</p>
+    {% endif %}
+	<br>
+	<div id="home-btn">
+		<button><a href="{% url 'watch_next:index' %}" >HOME</a></button>
+	</div>
+	
+	
+</section>
+			<!--btn script-->
+	    <script src=" static/assets/js/scripts.js"></script>
+
+</body>
+
+</html>
